@@ -1,0 +1,31 @@
+title: Music Peer Exchange Sessions
+subtitle: A student-led series for peer learning, practical exchange, and supportive networking.
+nav:
+  home: Home
+  sessions: Sessions
+  language: Language
+hero_cta: View upcoming sessions
+purpose:
+  paragraph: Music Peer Exchange Sessions creates a relaxed space for music postgraduates to share practical knowledge beyond lectures and learn from each other.
+  bullets:
+    - Exchange practical knowledge beyond lectures
+    - Improve networking and cross-background communication
+    - Support employability and industry awareness
+    - Encourage student autonomy with light staff involvement
+how_it_works:
+  - Duration: 60–90 minutes per session
+  - 1–3 student session leads (optional guest input)
+  - Capacity: max 15 participants
+  - Frequency: approximately bi-weekly
+themes:
+  - title: Industry Insights
+    description: Peer sharing on industry structure, roles, and trends.
+  - title: Employability
+    description: UK-focused job search, CV/portfolio feedback, and interview prep.
+  - title: Production & Composing
+    description: Skill exchange on tools, workflows, and collaboration.
+  - title: Music Education
+    description: Sharing practices and pathways in music education.
+organisers:
+  - name: Long Lin
+    role: Overall Coordinator
