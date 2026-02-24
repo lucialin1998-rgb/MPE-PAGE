@@ -1,0 +1,77 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SessionCard from '../../components/SessionCard.astro';
+import { sortSessions, isUpcoming } from '../../lib/sessions';
+
+const settings = (await getCollection('settings_cn'))[0].data;
+const sessions = sortSessions(await getCollection('sessions_cn'));
+const upcoming = sessions.filter(isUpcoming).slice(0, 3);
+---
+<BaseLayout lang="zh" pageTitle={settings.title} nav={settings.nav} currentPath="home" languageLabel="English | 中文" languageUrl="/en">
+  <section class="hero card">
+    <img src={settings.hero_image} alt="主图" />
+    <div>
+      <h1>{settings.title}</h1>
+      <p>{settings.subtitle}</p>
+      <a class="button" href="/cn/sessions">{settings.hero_cta}</a>
+    </div>
+  </section>
+
+  <section class="grid-two">
+    <article class="card">
+      <h2>项目目标</h2>
+      <p>{settings.purpose.paragraph}</p>
+      <ul>{settings.purpose.bullets.map((b) => <li>{b}</li>)}</ul>
+    </article>
+    <article class="card">
+      <h2>运作方式</h2>
+      <ul>{settings.how_it_works.map((item) => <li>{item}</li>)}</ul>
+    </article>
+  </section>
+
+  <section>
+    <h2>主题方向</h2>
+    <div class="grid-four">
+      {settings.themes.map((theme) => (
+        <article class="card"><h3>{theme.title}</h3><p>{theme.description}</p></article>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <h2>近期活动</h2>
+    <div class="stack">
+      {upcoming.map((session) => <SessionCard session={session} labels={{ open: '开放', closed: '已关闭', register: '报名', closedCta: '报名已关闭' }} />)}
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>组织者</h2>
+    <ul>{settings.organisers.map((p) => <li>{p.name} — {p.role}{p.email ? ` (${p.email})` : ''}</li>)}</ul>
+    <p><strong>{settings.registration_note}</strong></p>
+  </section>
+
+  {settings.gallery_images?.length ? (
+    <section>
+      <h2>图片集</h2>
+      <div class="gallery">
+        {settings.gallery_images.map((img) => <img src={img} alt="活动图片" class="card" />)}
+      </div>
+    </section>
+  ) : null}
+</BaseLayout>
+
+<style>
+  section { margin-bottom: 26px; }
+  .hero { display: grid; gap: 16px; grid-template-columns: 1.2fr 1fr; align-items: center; }
+  .hero img { width: 100%; border-radius: 12px; min-height: 220px; object-fit: cover; }
+  .grid-two { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-four { display: grid; gap: 14px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .stack { display: grid; gap: 14px; }
+  .gallery { display: grid; gap: 12px; grid-template-columns: repeat(3, 1fr); }
+  .gallery img { width: 100%; object-fit: cover; height: 140px; }
+  @media (max-width: 860px) {
+    .hero, .grid-two, .grid-four, .gallery { grid-template-columns: 1fr; }
+  }
+</style>

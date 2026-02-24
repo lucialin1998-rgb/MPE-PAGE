@@ -1,0 +1,28 @@
+---
+const { session, labels } = Astro.props;
+const isClosed = session.data.registration_status === 'Closed';
+const registerText = isClosed ? labels.closedCta : labels.register;
+---
+<article class="card session-card">
+  <div class="session-top">
+    <h3><a href={session.url}>{session.data.title}</a></h3>
+    <span class={`badge ${isClosed ? 'badge-closed' : 'badge-open'}`}>
+      {isClosed ? labels.closed : labels.open}
+    </span>
+  </div>
+  <p class="meta">{session.data.date} · {session.data.start_time}–{session.data.end_time}</p>
+  <p class="meta">{session.data.theme} · {session.data.language} · {session.data.location}</p>
+  <p>{session.data.short_description}</p>
+  <a class={`button ${isClosed ? 'disabled' : ''}`} href={isClosed ? '#' : session.data.registration_url} aria-disabled={isClosed ? 'true' : 'false'}>
+    {registerText}
+  </a>
+</article>
+
+<style>
+  .session-card { display: grid; gap: .65rem; }
+  .session-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  h3 { margin: 0; font-size: 1.1rem; }
+  h3 a { text-decoration: none; color: inherit; }
+  .meta { margin: 0; color: var(--muted); font-size: .92rem; }
+  p { margin: 0; }
+</style>

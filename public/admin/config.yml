@@ -1,0 +1,160 @@
+backend:
+  name: git-gateway
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "settings_en"
+    label: "Settings (EN)"
+    files:
+      - label: "English Site Settings"
+        name: "settings_en"
+        file: "src/content/settings/en.yml"
+        fields:
+          - { label: "Title", name: "title", widget: "string", required: true }
+          - { label: "Subtitle", name: "subtitle", widget: "text", required: true }
+          - label: "Navigation"
+            name: "nav"
+            widget: "object"
+            fields:
+              - { label: "Home", name: "home", widget: "string" }
+              - { label: "Sessions", name: "sessions", widget: "string" }
+              - { label: "Language", name: "language", widget: "string" }
+          - { label: "Hero CTA", name: "hero_cta", widget: "string", required: true }
+          - label: "Purpose"
+            name: "purpose"
+            widget: "object"
+            fields:
+              - { label: "Paragraph", name: "paragraph", widget: "text", required: true }
+              - label: "Bullets"
+                name: "bullets"
+                widget: "list"
+                field: { label: "Bullet", name: "bullet", widget: "string" }
+          - label: "How it works bullets"
+            name: "how_it_works"
+            widget: "list"
+            field: { label: "Item", name: "item", widget: "string" }
+          - label: "Themes"
+            name: "themes"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+          - label: "Organisers"
+            name: "organisers"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Role", name: "role", widget: "string" }
+              - { label: "Email", name: "email", widget: "string", required: false }
+          - { label: "Registration note", name: "registration_note", widget: "string" }
+          - { label: "Hero image", name: "hero_image", widget: "image" }
+          - label: "Gallery images (up to 3)"
+            name: "gallery_images"
+            widget: "list"
+            max: 3
+            field: { label: "Image", name: "image", widget: "image" }
+
+  - name: "settings_cn"
+    label: "Settings (CN)"
+    files:
+      - label: "Chinese Site Settings"
+        name: "settings_cn"
+        file: "src/content/settings/cn.yml"
+        fields:
+          - { label: "标题", name: "title", widget: "string", required: true }
+          - { label: "副标题", name: "subtitle", widget: "text", required: true }
+          - label: "导航"
+            name: "nav"
+            widget: "object"
+            fields:
+              - { label: "首页", name: "home", widget: "string" }
+              - { label: "活动", name: "sessions", widget: "string" }
+              - { label: "语言", name: "language", widget: "string" }
+          - { label: "主页按钮文案", name: "hero_cta", widget: "string", required: true }
+          - label: "项目目标"
+            name: "purpose"
+            widget: "object"
+            fields:
+              - { label: "段落", name: "paragraph", widget: "text", required: true }
+              - label: "要点"
+                name: "bullets"
+                widget: "list"
+                field: { label: "条目", name: "bullet", widget: "string" }
+          - label: "运作方式"
+            name: "how_it_works"
+            widget: "list"
+            field: { label: "条目", name: "item", widget: "string" }
+          - label: "主题"
+            name: "themes"
+            widget: "list"
+            fields:
+              - { label: "标题", name: "title", widget: "string" }
+              - { label: "描述", name: "description", widget: "text" }
+          - label: "组织者"
+            name: "organisers"
+            widget: "list"
+            fields:
+              - { label: "姓名", name: "name", widget: "string" }
+              - { label: "角色", name: "role", widget: "string" }
+              - { label: "邮箱", name: "email", widget: "string", required: false }
+          - { label: "报名说明", name: "registration_note", widget: "string" }
+          - { label: "主图", name: "hero_image", widget: "image" }
+          - label: "图片集（最多 3 张）"
+            name: "gallery_images"
+            widget: "list"
+            max: 3
+            field: { label: "图片", name: "image", widget: "image" }
+
+  - name: "sessions_en"
+    label: "Sessions (EN)"
+    folder: "src/content/sessions/en"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Slug", name: "slug", widget: "string", required: true, hint: "URL part, e.g. first-session" }
+      - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD", required: true }
+      - { label: "Start time", name: "start_time", widget: "string", pattern: ['^([01]\\d|2[0-3]):([0-5]\\d)$', "Use HH:MM"] }
+      - { label: "End time", name: "end_time", widget: "string", pattern: ['^([01]\\d|2[0-3]):([0-5]\\d)$', "Use HH:MM"] }
+      - { label: "Location", name: "location", widget: "string", required: true }
+      - { label: "Theme", name: "theme", widget: "select", options: ["Industry Insights", "Employability", "Production & Composing", "Music Education"] }
+      - { label: "Language", name: "language", widget: "select", options: ["EN", "中文", "Bilingual"] }
+      - { label: "Capacity", name: "capacity", widget: "number", default: 15, min: 1 }
+      - { label: "Registration status", name: "registration_status", widget: "select", options: ["Open", "Closed"] }
+      - { label: "Registration URL", name: "registration_url", widget: "string", required: true }
+      - { label: "Short description", name: "short_description", widget: "text", required: true }
+      - label: "Session leads"
+        name: "session_leads"
+        widget: "list"
+        field: { label: "Lead", name: "lead", widget: "string" }
+      - { label: "Detail content", name: "body", widget: "markdown", required: false }
+
+  - name: "sessions_cn"
+    label: "Sessions (CN)"
+    folder: "src/content/sessions/cn"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "标题", name: "title", widget: "string", required: true }
+      - { label: "Slug", name: "slug", widget: "string", required: true, hint: "URL 路径，如 first-session" }
+      - { label: "日期", name: "date", widget: "date", format: "YYYY-MM-DD", required: true }
+      - { label: "开始时间", name: "start_time", widget: "string", pattern: ['^([01]\\d|2[0-3]):([0-5]\\d)$', "格式 HH:MM"] }
+      - { label: "结束时间", name: "end_time", widget: "string", pattern: ['^([01]\\d|2[0-3]):([0-5]\\d)$', "格式 HH:MM"] }
+      - { label: "地点", name: "location", widget: "string", required: true }
+      - { label: "主题", name: "theme", widget: "select", options: ["Industry Insights", "Employability", "Production & Composing", "Music Education"] }
+      - { label: "语言", name: "language", widget: "select", options: ["EN", "中文", "Bilingual"] }
+      - { label: "人数上限", name: "capacity", widget: "number", default: 15, min: 1 }
+      - { label: "报名状态", name: "registration_status", widget: "select", options: ["Open", "Closed"] }
+      - { label: "报名链接", name: "registration_url", widget: "string", required: true }
+      - { label: "简短介绍", name: "short_description", widget: "text", required: true }
+      - label: "主讲成员"
+        name: "session_leads"
+        widget: "list"
+        field: { label: "姓名", name: "lead", widget: "string" }
+      - { label: "详细内容", name: "body", widget: "markdown", required: false }

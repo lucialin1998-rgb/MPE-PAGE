@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SessionCard from '../../../components/SessionCard.astro';
+import { sortSessions, isUpcoming } from '../../../lib/sessions';
+
+const settings = (await getCollection('settings_cn'))[0].data;
+const sessions = sortSessions(await getCollection('sessions_cn'));
+const upcoming = sessions.filter(isUpcoming);
+---
+<BaseLayout lang="zh" pageTitle={`活动列表 | ${settings.title}`} nav={settings.nav} currentPath="sessions" languageLabel="English | 中文" languageUrl="/en/sessions">
+  <h1>近期活动</h1>
+  <p>以下为即将开展的学生互助活动，往期活动默认隐藏。</p>
+  <div class="stack">
+    {upcoming.map((session) => <SessionCard session={session} labels={{ open: '开放', closed: '已关闭', register: '报名', closedCta: '报名已关闭' }} />)}
+  </div>
+</BaseLayout>
+
+<style>.stack{display:grid;gap:14px}</style>

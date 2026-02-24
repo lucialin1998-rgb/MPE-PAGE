@@ -1,0 +1,109 @@
+---
+const {
+  lang,
+  pageTitle,
+  nav,
+  currentPath,
+  languageLabel,
+  languageUrl
+} = Astro.props;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <style>
+      :root {
+        --bg: #f6f8fc;
+        --card: #ffffff;
+        --text: #1e2a3b;
+        --muted: #5f6f83;
+        --accent: #3164ff;
+        --accent-soft: #e8eeff;
+        --ok: #1f8b4c;
+        --danger: #b23434;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, "Noto Sans SC", system-ui, -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      a { color: inherit; }
+      .container { width: min(1024px, 92vw); margin: 0 auto; }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        backdrop-filter: blur(6px);
+        background: rgba(246, 248, 252, 0.92);
+        border-bottom: 1px solid #e2e7f2;
+      }
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 0;
+      }
+      .nav-links { display: flex; gap: 18px; align-items: center; }
+      .nav-links a { text-decoration: none; color: var(--muted); font-weight: 600; }
+      .nav-links a.active { color: var(--accent); }
+      .language-toggle {
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: var(--card);
+        border: 1px solid #dce4f0;
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+      main { padding: 28px 0 52px; }
+      .card {
+        background: var(--card);
+        border-radius: 16px;
+        padding: 18px;
+        box-shadow: 0 6px 24px rgba(31, 48, 78, 0.07);
+      }
+      .badge { padding: 4px 10px; border-radius: 999px; font-size: .8rem; font-weight: 700; }
+      .badge-open { background: #e5f8ec; color: var(--ok); }
+      .badge-closed { background: #fdecec; color: var(--danger); }
+      .button {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 14px;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .button:disabled, .button.disabled {
+        background: #a6b2c8;
+        cursor: not-allowed;
+      }
+      footer { padding: 16px 0 30px; color: var(--muted); font-size: .92rem; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <strong>Music Peer Exchange</strong>
+        <nav class="nav-links">
+          <a class={currentPath === 'home' ? 'active' : ''} href={lang === 'en' ? '/en' : '/cn'}>{nav.home}</a>
+          <a class={currentPath === 'sessions' ? 'active' : ''} href={lang === 'en' ? '/en/sessions' : '/cn/sessions'}>{nav.sessions}</a>
+          <a class="language-toggle" href={languageUrl}>{languageLabel}</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <slot />
+      </div>
+    </main>
+    <footer>
+      <div class="container">Student-led knowledge exchange · Music Peer Exchange Sessions</div>
+    </footer>
+  </body>
+</html>
