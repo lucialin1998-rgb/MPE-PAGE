@@ -5,6 +5,11 @@ nav:
   sessions: 活动
   language: 语言
 hero_cta: 查看近期活动
+
+# REQUIRED by schema:
+hero_image: "/uploads/placeholder-hero.jpg"
+registration_note: "报名通过 Google Form 完成。名额有限（最多 15 人），满员或截止后将关闭报名。"
+
 purpose:
   paragraph: 音乐同伴交流活动希望打造一个温暖、专业、可持续的学生互助空间，让同学们在分享中共同成长。
   bullets:
