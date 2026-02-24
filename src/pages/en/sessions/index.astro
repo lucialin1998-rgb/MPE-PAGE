@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SessionCard from '../../../components/SessionCard.astro';
+import { sortSessions, isUpcoming } from '../../../lib/sessions';
+
+const settings = (await getCollection('settings_en'))[0].data;
+const sessions = sortSessions(await getCollection('sessions_en'));
+const upcoming = sessions.filter(isUpcoming);
+---
+<BaseLayout lang="en" pageTitle={`Sessions | ${settings.title}`} nav={settings.nav} currentPath="sessions" languageLabel="English | 中文" languageUrl="/cn/sessions">
+  <h1>Upcoming Sessions</h1>
+  <p>Browse upcoming student-led sessions. Past sessions are hidden by default.</p>
+  <div class="stack">
+    {upcoming.map((session) => <SessionCard session={session} labels={{ open: 'Open', closed: 'Closed', register: 'Register', closedCta: 'Registration closed' }} />)}
+  </div>
+</BaseLayout>
+
+<style>.stack{display:grid;gap:14px}</style>

@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const sessions = await getCollection('sessions_cn');
+  return sessions.map((session) => ({ params: { slug: session.slug }, props: { session } }));
+}
+
+const { session } = Astro.props;
+const settings = (await getCollection('settings_cn'))[0].data;
+const { Content } = await session.render();
+const closed = session.data.registration_status === 'Closed';
+---
+<BaseLayout lang="zh" pageTitle={session.data.title} nav={settings.nav} currentPath="sessions" languageLabel="English | 中文" languageUrl={`/en/sessions/${session.slug}`}>
+  <article class="card detail">
+    <h1>{session.data.title}</h1>
+    <p>{session.data.date} · {session.data.start_time}–{session.data.end_time}</p>
+    <p>{session.data.location} · {session.data.theme} · {session.data.language}</p>
+    <p>主讲成员：{session.data.session_leads.join('、')}</p>
+    <p>容量：{session.data.capacity}</p>
+    <p>{session.data.short_description}</p>
+    <Content />
+    {closed ? <button class="button" disabled>报名已关闭</button> : <a class="button" href={session.data.registration_url}>通过 Google 表单报名</a>}
+  </article>
+</BaseLayout>
+
+<style>.detail{display:grid;gap:8px}</style>
