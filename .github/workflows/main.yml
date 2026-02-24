@@ -21,16 +21,39 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Debug repo (list files)
+        run: |
+          echo "=== PWD ==="
+          pwd
+          echo "=== LS ==="
+          ls -la
+          echo "=== Find package.json ==="
+          find . -maxdepth 3 -name package.json -print || true
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install dependencies
-        run: npm install
+      - name: Show Node & npm versions
+        run: |
+          node -v
+          npm -v
 
-      - name: Build
-        run: npm run build
+      - name: Install dependencies (more tolerant)
+        run: |
+          # Try normal install first
+          npm install --no-audit --no-fund || true
+          # If install had issues, try legacy peer deps mode (common fix for dependency conflicts)
+          npm install --no-audit --no-fund --legacy-peer-deps
+
+      - name: Build (print detailed errors if fail)
+        run: |
+          npm run build || (echo "=== BUILD FAILED ===" && \
+          echo "Try printing npm debug logs:" && \
+          ls -la && \
+          find . -maxdepth 3 -name "*npm-debug.log*" -print -exec cat {} \; || true && \
+          exit 1)
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
