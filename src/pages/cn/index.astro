@@ -11,7 +11,7 @@ const base = import.meta.env.BASE_URL || "/";
 ---
 <BaseLayout lang="zh" pageTitle={settings.title} nav={settings.nav} currentPath="home" languageLabel="English | 中文" languageUrl={`${base}en/`}>
   <section class="hero card">
-    <img src={`${base}${settings.hero_image.replace(/^\//, '')}`} alt="主图" />
+    <img src={`${base}uploads/placeholder-hero.jpg`} alt="主图" />
     <div>
       <h1>{settings.title}</h1>
       <p>{settings.subtitle}</p>
