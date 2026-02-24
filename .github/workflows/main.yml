@@ -21,14 +21,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Debug repo (list files)
+      - name: Locate app directory (where package.json is)
         run: |
-          echo "=== PWD ==="
-          pwd
-          echo "=== LS ==="
+          echo "=== Repo root files ==="
           ls -la
-          echo "=== Find package.json ==="
-          find . -maxdepth 3 -name package.json -print || true
+          echo "=== Searching package.json ==="
+          APP_PKG=$(find . -maxdepth 6 -name package.json -not -path "./node_modules/*" -print -quit)
+          if [ -z "$APP_PKG" ]; then
+            echo "ERROR: package.json not found in repo (maxdepth 6)."
+            exit 1
+          fi
+          APP_DIR=$(dirname "$APP_PKG")
+          echo "Found package.json at: $APP_PKG"
+          echo "APP_DIR=$APP_DIR" >> $GITHUB_ENV
+          echo "=== App dir listing ==="
+          ls -la "$APP_DIR"
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -40,25 +47,20 @@ jobs:
           node -v
           npm -v
 
-      - name: Install dependencies (more tolerant)
+      - name: Install dependencies
+        working-directory: ${{ env.APP_DIR }}
         run: |
-          # Try normal install first
-          npm install --no-audit --no-fund || true
-          # If install had issues, try legacy peer deps mode (common fix for dependency conflicts)
           npm install --no-audit --no-fund --legacy-peer-deps
 
-      - name: Build (print detailed errors if fail)
+      - name: Build
+        working-directory: ${{ env.APP_DIR }}
         run: |
-          npm run build || (echo "=== BUILD FAILED ===" && \
-          echo "Try printing npm debug logs:" && \
-          ls -la && \
-          find . -maxdepth 3 -name "*npm-debug.log*" -print -exec cat {} \; || true && \
-          exit 1)
+          npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: ${{ env.APP_DIR }}/dist
 
   deploy:
     needs: build
