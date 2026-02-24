@@ -1,5 +1,6 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: 'https://example.netlify.app'
+  site: "https://lucialin1998-rgb.github.io",
+  base: "/MPE-PAGE/",
 });
