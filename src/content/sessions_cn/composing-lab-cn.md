@@ -1,7 +1,7 @@
 ---
 title: "编曲与协作创作工作坊"
 slug: "composing-lab-cn"
-date: "2099-04-04"
+date: "2026-04-04"
 start_time: "15:00"
 end_time: "16:00"
 location: "创作工作室"
