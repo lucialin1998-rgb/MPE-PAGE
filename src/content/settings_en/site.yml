@@ -5,6 +5,11 @@ nav:
   sessions: Sessions
   language: Language
 hero_cta: View upcoming sessions
+
+# REQUIRED by schema:
+hero_image: "/uploads/placeholder-hero.jpg"
+registration_note: "Registration is via Google Form. Capacity is limited to 15. Registration may close when full or near the session date."
+
 purpose:
   paragraph: Music Peer Exchange Sessions creates a relaxed space for music postgraduates to share practical knowledge beyond lectures and learn from each other.
   bullets:
