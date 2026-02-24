@@ -1,0 +1,30 @@
+title: 音乐同伴交流活动
+subtitle: 由学生发起与带领的知识交流，围绕音乐学习、实践与职业成长。
+nav:
+  home: 首页
+  sessions: 活动
+  language: 语言
+hero_cta: 查看近期活动
+purpose:
+  paragraph: 音乐同伴交流活动希望打造一个温暖、专业、可持续的学生互助空间，让同学们在分享中共同成长。
+  bullets:
+    - 分享真实项目经验与实用技能。
+    - 连接不同方向同学，促进跨领域合作。
+    - 在交流与反馈中提升表达和自信。
+how_it_works:
+  - 时长：每场 60–90 分钟。
+  - 主持：1–3 名学生主讲，可邀请嘉宾。
+  - 人数：建议上限 15 人，保证互动质量。
+  - 频率：学期内每两周一次。
+themes:
+  - title: Industry Insights
+    description: 聚焦音乐行业观察、职业路径与人脉建设。
+  - title: Employability
+    description: 简历优化、作品集反馈与面试准备。
+  - title: Production & Composing
+    description: 编曲制作流程、DAW 实操与合作创作。
+  - title: Music Education
+    description: 教学设计、课堂组织与引导技巧。
+organisers:
+  - name: Long Lin
+    role: 总协调
