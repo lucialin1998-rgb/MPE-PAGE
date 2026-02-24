@@ -9,7 +9,7 @@ const sessions = sortSessions(await getCollection('sessions_cn'));
 const upcoming = sessions.filter(isUpcoming).slice(0, 3);
 const base = import.meta.env.BASE_URL || "/";
 ---
-<BaseLayout lang="zh" pageTitle={settings.title} nav={settings.nav} currentPath="home" languageLabel="English | 中文" languageUrl="/en">
+<BaseLayout lang="zh" pageTitle={settings.title} nav={settings.nav} currentPath="home" languageLabel="English | 中文" languageUrl={`${base}en/`}>
   <section class="hero card">
     <img src={`${base}${settings.hero_image.replace(/^\//, '')}`} alt="主图" />
     <div>
